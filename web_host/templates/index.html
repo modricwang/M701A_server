@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    div.inline {
+        float: left;
+        display: inline;
+    }
+
+    .clearBoth {
+        clear: both;
+    }
+</style>
+
+<h1>M701A AQI server</h1>
+<!--<ul>-->
+<br class="clearBoth"/>
+{% autoescape false %}
+{% block chart1 %}
+{% for i in range(XVs|length) %}
+{% set XV=XVs[i] %}
+{% set YV=YVs[i] %}
+{% set title=names[i]|safe %}
+{% include 'charts.html' %}
+{% endfor %}
+{% endblock %}
+{% endautoescape %}
+
+<br class="clearBoth"/>
+<!--</ul>-->
+{% endblock %}
