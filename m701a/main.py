@@ -42,7 +42,7 @@ def main():
     args = process_args()
     # conn = connect_helper(port='/dev/ttyAMA0')
     conn = connect_helper(port=args.port)
-    engine = create_engine(args.engine, echo=True, future=True)
+    engine = create_engine(args.db_url, echo=True, future=True)
 
     Base.metadata.create_all(engine)
 
