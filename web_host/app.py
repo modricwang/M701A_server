@@ -2,7 +2,7 @@
 import datetime
 import json
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_wtf import CSRFProtect
 
 from flask_bootstrap import Bootstrap5, SwitchField
@@ -95,9 +95,13 @@ def index():
                            XVs=Xs,
                            YVs=Ys)
 
+logger = logging.getLogger()
+logger.setLevel(logging.NOTSET)
+
+@app.before_request
+def log_the_request():
+    logger.info(request)
 
 if __name__ == '__main__':
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
 
     waitress.serve(app, port=args.port, url_scheme='https')
