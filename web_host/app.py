@@ -100,7 +100,7 @@ logger.setLevel(logging.NOTSET)
 
 @app.before_request
 def log_the_request():
-    logger.info("request from: " + str(request.remote_addr))
+    logger.info(" "+str(datetime.datetime.now())+", request from: " + str(request.remote_addr))
 
 if __name__ == '__main__':
 
