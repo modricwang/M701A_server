@@ -53,6 +53,9 @@ def main():
             info = conn.read()
         except IOError as e:
             print(e)
+            conn.connect.close()
+            del conn
+            conn = connect_helper(port=args.port)
             continue
         print(datetime.datetime.now(), info)
         time.sleep(30)
