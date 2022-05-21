@@ -1,7 +1,7 @@
 /*!
- * Chart.js v3.7.1
+ * Chart.static v3.7.1
  * https://www.chartjs.org
- * (c) 2022 Chart.js Contributors
+ * (c) 2022 Chart.static Contributors
  * Released under the MIT License
  */
 (function (global, factory) {
