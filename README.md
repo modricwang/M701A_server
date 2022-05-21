@@ -45,6 +45,10 @@ sudo chmod 666 /dev/ttyAMA0
 
 ### For Pro Version
 
+#### connect via a UART-USB converter
+![img.png](img_connect_pro.jpg)
+
+
 #### set powershell policy
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -54,7 +58,10 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ### For Lite Version
 
-#### WIP
+```bash
+cd m701a
+sh run_db.sh
+```
 
 ### For Pro Version
 
@@ -65,4 +72,20 @@ cd m701a
 
 ## Run Server
 
-### WIP
+### For Lite Version
+
+```bash
+cd web_host
+sh run_web_host.sh
+```
+
+### For Pro Version
+
+```powershell
+cd web_host
+.\run_web_host.ps1
+```
+
+## open in browser
+http://XX.XX.XX.XX:XXXX
+![img.png](web_view.png)
