@@ -38,6 +38,8 @@ app.config['BOOTSTRAP_TABLE_EDIT_TITLE'] = 'Update'
 app.config['BOOTSTRAP_TABLE_DELETE_TITLE'] = 'Remove'
 app.config['BOOTSTRAP_TABLE_NEW_TITLE'] = 'Create'
 
+app.config.setdefault('BOOTSTRAP_SERVE_LOCAL', True)
+
 bootstrap = Bootstrap5(app)
 db = SQLAlchemy(app)
 csrf = CSRFProtect(app)
@@ -69,7 +71,7 @@ def before_first_request_func():
 def index():
     cur_time = datetime.datetime.now()
     data = AirData.query.filter(AirData.time >= cur_time - datetime.timedelta(hours=8)).order_by(
-        db.asc(AirData.time)).all()
+        db.asc(AirData.time)).filter(AirData.id % 8 == 0).all()
     names = ['CO2',
              'CH2O',
              'TVOC',
@@ -95,13 +97,15 @@ def index():
                            XVs=Xs,
                            YVs=Ys)
 
+
 logger = logging.getLogger()
 logger.setLevel(logging.NOTSET)
 
+
 @app.before_request
 def log_the_request():
-    logger.info(" "+str(datetime.datetime.now())+", request from: " + str(request.remote_addr))
+    logger.info(" " + str(datetime.datetime.now()) + ", request from: " + str(request.remote_addr))
+
 
 if __name__ == '__main__':
-
     waitress.serve(app, port=args.port, url_scheme='https')
