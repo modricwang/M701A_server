@@ -1,35 +1,56 @@
-<div  class="inline"><canvas id="{{title}}" style="width:100%;max-width:370px"></canvas></div>
-    <script>
+<div class="inline">
+    <canvas id="{{title}}" style="width:370px;max-width:370px"></canvas>
+</div>
+<script>
+    var ctx = document.getElementById("{{title}}").getContext('2d');
+    var xValues = {{XV | safe}};
+    var yValues = {{YV}};
+    // var xValues = {{XV | safe}};
+    // var yValues = {{YV}};
 
-        var xValues = {{XV|safe}};
-        var yValues = {{YV}};
-        new Chart("{{title}}", {
-            type: "line",
-            data: {
-                labels: xValues ,
-                datasets: [{
-                    fill: false,
-                    lineTension: 0.5,
-                    backgroundColor: "rgba(0,0,255,0.0)",
-                    pointBackgroundColor: "rgba(0,0,255,0.0)",
-                    borderColor: "rgba(0,0,255,1.0)",
-                    pointRadius: 0,
-                    borderWidth: 2,
-                    data: yValues
-                }]
-            },
-            options: {
-                aspectRatio: 1.5,
-                // borderWidth: 0.5,
-                title: { //标题
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: "rgba(0,0,255,0.0)",
+
+                pointBackgroundColor: "rgba(0,0,255,0.0)",
+                // borderColor: "rgba(0,0,255,1.0)",
+                pointRadius: 0,
+                borderWidth: 2,
+                data: yValues,
+                // backgroundColor: gradient,
+              borderColor: function(context) {
+                const chart = context.chart;
+                const {ctx, chartArea} = chart;
+
+                if (!chartArea) {
+                  // This case happens on initial chart load
+                  return null;
+                }
+                return getGradient(ctx, chartArea);
+              },
+            }]
+        },
+        options: {
+            aspectRatio: 1.5,
+            plugins: {
+                title: {
+                    font: {size: 20},
+                    color: 'rgb(27, 81, 235)',
                     display: true,
-                    fontSize: 20,
+
                     text: "{{title}}",
-                    fontColor: "rgba(0,0,255,1.0)"},
+
+                },
                 legend: {display: false},
-                // scales: {
-                //     yAxes: [{ticks: {min: 6, max: 16}}],
-                // }
             }
-        });
-        </script>
+
+        }
+    });
+
+</script>
